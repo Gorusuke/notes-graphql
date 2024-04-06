@@ -1,23 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from '@apollo/server/standalone';
-
-
-interface Note {
-  id: number
-  title: string
-  description: string
-  categoryId: string
-}
-
-interface Notes {
-  notes?: Note[]
-}
-
-const getAllNotes = async () => {
-  const getNotes = await fetch('http://localhost:4000/api/notes')
-  const { notes }: Notes = await getNotes.json()
-  return notes
-}
+import { db } from "./db.ts";
+import { notes } from "./drizzle/notesSchema.ts";
 
 const typeDefs = `#graphql
   type Note {
@@ -30,15 +14,19 @@ const typeDefs = `#graphql
   type Query {
     allNotes: [Note]
     allNotesCount: Int
-    allNotes3: Int
   }
 `
 
 const resolvers = {
   Query: {
-    allNotes: async () => await getAllNotes(),
-    allNotesCount: async () => (await getAllNotes()).length,
-    allNotes3: async () => 23,
+    allNotes: async () => {
+      const allNotes = await db.select().from(notes).all()
+      return allNotes
+    },
+    allNotesCount: async () => {
+      const allNotes = await db.select().from(notes).all()
+      return allNotes.length
+    }
   }
 }
 
