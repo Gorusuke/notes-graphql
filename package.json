@@ -15,6 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.10.2",
+    "@libsql/client": "^0.6.0",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.30.7",
     "graphql": "^16.8.1"
   },
   "devDependencies": {

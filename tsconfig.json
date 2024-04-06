@@ -13,6 +13,8 @@
     "esModuleInterop": true,
     "types": [
       "node"
-    ]
+    ],
+    "noEmit": true,
+    "allowImportingTsExtensions": true
   }
 }
