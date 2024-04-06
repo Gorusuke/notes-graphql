@@ -12,4 +12,11 @@ export const noteDefinitions = `
     getNoteById(id: String!): Note
     getNotesByCategoryId(categoryId: String!): [Note]
   }
+
+  type Mutation {
+    addNote(title: String!, description: String!): Note
+    updateNotes(title: String!, description: String!, id: String!): Note
+    updateNotesByCategoryId(id: String, categoryId: String!): Note 
+    deleteNotes(id: String!): [Note]
+  }
 `
