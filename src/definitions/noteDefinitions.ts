@@ -18,5 +18,7 @@ export const noteDefinitions = `
     updateNotes(title: String!, description: String!, id: String!): Note
     updateNotesByCategoryId(id: String, categoryId: String!): Note 
     deleteNotes(id: String!): [Note]
+    updateArchiveNote(id: String!): Note
+    updateUnarchiveNote(id: String!): Note
   }
 `
