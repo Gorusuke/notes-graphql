@@ -3,9 +3,13 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { getAllNotes, getNoteById, getNotesByCategoryId, getNotesCount } from "./query/noteQuery.ts";
 import { noteDefinitions } from "./definitions/noteDefinitions.ts";
 import { addNote, deleteNotes, updateArchiveNote, updateNotes, updateNotesByCategoryId, updateUnarchiveNote } from "./mutations/noteMutation.ts";
+import { categoryDefinitions } from "./definitions/categoryDefinition.ts";
+import { getAllCategories } from "./query/categoryQuery.ts";
+import { addCategories, deleteCategories } from "./mutations/categoryMutation.ts";
 
 const typeDefs = `#graphql
   ${noteDefinitions}
+  ${categoryDefinitions}
 `
 
 const resolvers = {
@@ -13,7 +17,8 @@ const resolvers = {
     getAllNotes,
     getNotesCount,
     getNoteById,
-    getNotesByCategoryId
+    getNotesByCategoryId,
+    getAllCategories
   },
   Mutation: {
     addNote,
@@ -21,7 +26,9 @@ const resolvers = {
     updateNotesByCategoryId,
     updateArchiveNote,
     updateUnarchiveNote,
-    deleteNotes
+    deleteNotes,
+    addCategories,
+    deleteCategories
   }
 }
 
