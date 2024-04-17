@@ -8,7 +8,7 @@
     "tsc": "tsc",
     "dev": "node --watch --loader ts-node/esm src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run tsc && node ./dist/index.js"
+    "start": "npm run tsc && node ./build/index.js"
   },
   "keywords": [],
   "author": "",
