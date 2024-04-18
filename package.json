@@ -16,11 +16,14 @@
   "dependencies": {
     "@apollo/server": "^4.10.2",
     "@libsql/client": "^0.6.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.7",
+    "express": "^4.19.2",
     "graphql": "^16.8.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/node": "^20.12.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.3"
