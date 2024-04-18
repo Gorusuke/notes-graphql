@@ -1,5 +1,5 @@
 import { text, sqliteTable, integer } from "drizzle-orm/sqlite-core";
-import { categories } from "./categoriesSchema.ts";
+import { categories } from "./categoriesSchema.js";
 
 export const notes = sqliteTable("notes", {
   id: integer("id", { mode: 'number' }).primaryKey({ autoIncrement: true }),

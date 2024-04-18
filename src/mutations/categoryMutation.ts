@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
-import { db } from "../db.ts";
-import { categories } from "../drizzle/categoriesSchema.ts";
-import { handleError } from "../utils.ts";
-import { notes } from "../drizzle/notesSchema.ts";
-import { getAllCategories } from "../query/categoryQuery.ts";
+import { db } from "../db.js";
+import { categories } from "../drizzle/categoriesSchema.js";
+import { handleError } from "../utils.js";
+import { notes } from "../drizzle/notesSchema.js";
+import { getAllCategories } from "../query/categoryQuery.js";
 
 export const addCategories = async (root, args) => {
   const { name } = args;

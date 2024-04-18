@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
-import { notes } from "../drizzle/notesSchema.ts";
-import { db } from "../db.ts";
-import { getAllNotes } from "../query/noteQuery.ts";
-import { handleError } from "../utils.ts";
+import { notes } from "../drizzle/notesSchema.js";
+import { db } from "../db.js";
+import { getAllNotes } from "../query/noteQuery.js";
+import { handleError } from "../utils.js";
 
 export const addNote = async (root, args) => {
   const { title, description } = args;

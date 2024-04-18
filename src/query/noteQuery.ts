@@ -1,8 +1,8 @@
 import { GraphQLError } from "graphql"
-import { db } from "../db.ts"
-import { notes } from "../drizzle/notesSchema.ts"
+import { db } from "../db.js"
+import { notes } from "../drizzle/notesSchema.js"
 import { eq, like } from "drizzle-orm"
-import { handleError } from "../utils.ts"
+import { handleError } from "../utils.js"
 
 export const getAllNotes = async () => {
   const allNotes = await db.select().from(notes).all()
