@@ -1,5 +1,9 @@
+import cors from 'cors';
+import http from 'http';
+import express from 'express';
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { getAllNotes, getNoteById, getNotesByCategoryId, getNotesCount } from "./query/noteQuery.js";
 import { noteDefinitions } from "./definitions/noteDefinitions.js";
 import { addNote, deleteNotes, updateArchiveNote, updateNotes, updateNotesByCategoryId, updateUnarchiveNote } from "./mutations/noteMutation.js";
@@ -29,11 +33,14 @@ const resolvers = {
         deleteCategories
     }
 };
+const app = express();
+const httpServer = http.createServer(app);
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
 });
-const { url } = await startStandaloneServer(server, {
-    listen: { port: 4001 },
-});
-console.log(`Server ready ats ${url}`);
+await server.start();
+app.use('/graphql', cors(), express.json(), expressMiddleware(server));
+await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+console.log(`Server ready at http://localhost:4000/graphql`);
