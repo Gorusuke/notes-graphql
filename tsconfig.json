@@ -8,12 +8,15 @@
       "es2020"
     ],
     "target": "es2020",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "types": [
       "node"
     ],
+    // "noEmit": true,
+    // "allowImportingTsExtensions": true,
+    "allowArbitraryExtensions": true,
     "skipLibCheck": true
-  }
+  },
 }

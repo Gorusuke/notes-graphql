@@ -1,11 +1,15 @@
+import cors from 'cors'
+import http from 'http';
+import express from 'express'
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from '@apollo/server/standalone';
-import { getAllNotes, getNoteById, getNotesByCategoryId, getNotesCount } from "./query/noteQuery.ts";
-import { noteDefinitions } from "./definitions/noteDefinitions.ts";
-import { addNote, deleteNotes, updateArchiveNote, updateNotes, updateNotesByCategoryId, updateUnarchiveNote } from "./mutations/noteMutation.ts";
-import { categoryDefinitions } from "./definitions/categoryDefinition.ts";
-import { getAllCategories } from "./query/categoryQuery.ts";
-import { addCategories, deleteCategories } from "./mutations/categoryMutation.ts";
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+import { getAllNotes, getNoteById, getNotesByCategoryId, getNotesCount } from "./query/noteQuery.js";
+import { noteDefinitions } from "./definitions/noteDefinitions.js";
+import { addNote, deleteNotes, updateArchiveNote, updateNotes, updateNotesByCategoryId, updateUnarchiveNote } from "./mutations/noteMutation.js";
+import { categoryDefinitions } from "./definitions/categoryDefinition.js";
+import { getAllCategories } from "./query/categoryQuery.js";
+import { addCategories, deleteCategories } from "./mutations/categoryMutation.js";
 
 const typeDefs = `#graphql
   ${noteDefinitions}
@@ -32,13 +36,21 @@ const resolvers = {
   }
 }
 
+const app = express();
+const httpServer = http.createServer(app);
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
 })
 
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 4001 },
-});
+await server.start()
+app.use(
+  '/graphql',
+  cors<cors.CorsRequest>(),
+  express.json(),
+  expressMiddleware(server),
+);
 
-console.log(`Server ready at ${url}`)
+await new Promise<void>((resolve) => httpServer.listen({ port: 4000 }, resolve));
+console.log(`Server ready at http://localhost:4000/graphql`)
